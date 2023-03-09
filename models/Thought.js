@@ -1,13 +1,13 @@
 const { Schema, model } = require("mongoose");
 const reactionSchema = require("../models/Reaction");
 
-// import dateFormat from "../utils/dateFormat";
+const dateFormat = require("../utils/dateFormat");
 
 const thoughtSchema = new Schema(
   {
     thoughtText: { type: String, required: true, minlength: 1, maxlength: 280 },
     username: { type: String, required: true },
-    // createdAt: { type: Date, default: Date.now, get: (timestamp) => dateFormat(timestamp) },
+    createdAt: { type: Date, default: Date.now, get: (timestamp) => dateFormat(timestamp) },
     reactions: [reactionSchema],
   },
   {
@@ -18,4 +18,5 @@ const thoughtSchema = new Schema(
   }
 );
 
-module.exports = thoughtSchema;
+const Thought = model("Thought", thoughtSchema);
+module.exports = Thought;
